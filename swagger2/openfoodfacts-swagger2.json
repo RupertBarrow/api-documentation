@@ -1899,221 +1899,11 @@
     "Images": {
       "title": "Images",
       "example": {
-        "1": {
-          "uploaded_t": 1375384725,
-          "uploader": "openfoodfacts-contributors",
-          "sizes": {
-            "100": {
-              "h": 100,
-              "w": 75
-            },
-            "400": {
-              "w": 300,
-              "h": 400
-            },
-            "full": {
-              "h": 3264,
-              "w": 2448
-            }
-          }
-        },
-        "2": {
-          "sizes": {
-            "100": {
-              "h": 100,
-              "w": 74
-            },
-            "400": {
-              "h": 400,
-              "w": 297
-            },
-            "full": {
-              "h": 4208,
-              "w": 3120
-            }
-          },
-          "uploaded_t": 1421397406,
-          "uploader": "tacinte"
-        },
-        "3": {
-          "sizes": {
-            "100": {
-              "w": 74,
-              "h": 100
-            },
-            "400": {
-              "h": 400,
-              "w": 297
-            },
-            "full": {
-              "h": 4208,
-              "w": 3120
-            }
-          },
-          "uploader": "tacinte",
-          "uploaded_t": 1421397412
-        },
-        "4": {
-          "sizes": {
-            "100": {
-              "w": 74,
-              "h": 100
-            },
-            "400": {
-              "w": 297,
-              "h": 400
-            },
-            "full": {
-              "h": 4208,
-              "w": 3120
-            }
-          },
-          "uploader": "tacinte",
-          "uploaded_t": 1421397413
-        },
-        "5": {
-          "sizes": {
-            "100": {
-              "w": 100,
-              "h": 75
-            },
-            "400": {
-              "w": 400,
-              "h": 300
-            },
-            "full": {
-              "h": 2448,
-              "w": 3264
-            }
-          },
-          "uploader": "stephane",
-          "uploaded_t": "1374776967"
-        },
-        "6": {
-          "sizes": {
-            "100": {
-              "h": 75,
-              "w": 100
-            },
-            "400": {
-              "w": 400,
-              "h": 300
-            },
-            "full": {
-              "w": 3264,
-              "h": 2448
-            }
-          },
-          "uploader": "stephane",
-          "uploaded_t": "1374776970"
-        },
-        "7": {
-          "uploader": "stephane",
-          "uploaded_t": "1374776974",
-          "sizes": {
-            "100": {
-              "h": 75,
-              "w": 100
-            },
-            "400": {
-              "w": 400,
-              "h": 300
-            },
-            "full": {
-              "w": 3264,
-              "h": 2448
-            }
-          }
-        },
-        "8": {
-          "sizes": {
-            "100": {
-              "h": 75,
-              "w": 100
-            },
-            "400": {
-              "h": 300,
-              "w": 400
-            },
-            "full": {
-              "w": 3264,
-              "h": 2448
-            }
-          },
-          "uploaded_t": "1374776980",
-          "uploader": "stephane"
-        },
-        "9": {
-          "sizes": {
-            "100": {
-              "h": 75,
-              "w": 100
-            },
-            "400": {
-              "h": 300,
-              "w": 400
-            },
-            "full": {
-              "w": 3264,
-              "h": 2448
-            }
-          },
-          "uploaded_t": "1374776984",
-          "uploader": "stephane"
-        },
-        "10": {
-          "uploader": "stephane",
-          "uploaded_t": "1374776998",
-          "sizes": {
-            "100": {
-              "h": 75,
-              "w": 100
-            },
-            "400": {
-              "h": 300,
-              "w": 400
-            },
-            "full": {
-              "h": 2448,
-              "w": 3264
-            }
-          }
-        },
-        "11": {
-          "uploader": "alexfloresveliz",
-          "uploaded_t": "1478331702",
-          "sizes": {
-            "100": {
-              "h": 100,
-              "w": 58
-            },
-            "400": {
-              "w": 233,
-              "h": 400
-            },
-            "full": {
-              "h": 516,
-              "w": 300
-            }
-          }
-        },
         "ingredients_en": {
           "rev": "10",
           "geometry": "1355x473-777-2377",
           "normalize": null,
           "sizes": {
-            "100": {
-              "h": 35,
-              "w": 100
-            },
-            "200": {
-              "w": 200,
-              "h": 70
-            },
-            "400": {
-              "w": 400,
-              "h": 140
-            },
             "full": {
               "w": 1355,
               "h": 473
@@ -2127,18 +1917,6 @@
           "geometry": "1303x2325-798-147",
           "normalize": "checked",
           "sizes": {
-            "100": {
-              "h": 100,
-              "w": 56
-            },
-            "200": {
-              "h": 200,
-              "w": 112
-            },
-            "400": {
-              "h": 400,
-              "w": 224
-            },
             "full": {
               "h": 2325,
               "w": 1303
@@ -2152,18 +1930,6 @@
           "geometry": "1355x473-777-2377",
           "normalize": null,
           "sizes": {
-            "100": {
-              "h": 35,
-              "w": 100
-            },
-            "200": {
-              "w": 200,
-              "h": 70
-            },
-            "400": {
-              "w": 400,
-              "h": 140
-            },
             "full": {
               "w": 1355,
               "h": 473
@@ -2176,18 +1942,6 @@
           "imgid": "2",
           "white_magic": null,
           "sizes": {
-            "100": {
-              "h": 100,
-              "w": 53
-            },
-            "200": {
-              "h": 200,
-              "w": 106
-            },
-            "400": {
-              "h": 400,
-              "w": 212
-            },
             "full": {
               "w": 2027,
               "h": 3819
@@ -2202,18 +1956,6 @@
           "geometry": "1303x2325-798-147",
           "normalize": "checked",
           "sizes": {
-            "100": {
-              "h": 100,
-              "w": 56
-            },
-            "200": {
-              "h": 200,
-              "w": 112
-            },
-            "400": {
-              "h": 400,
-              "w": 224
-            },
             "full": {
               "h": 2325,
               "w": 1303
@@ -2229,18 +1971,6 @@
           "normalize": "false",
           "white_magic": "false",
           "sizes": {
-            "100": {
-              "w": 58,
-              "h": 100
-            },
-            "200": {
-              "h": 200,
-              "w": 116
-            },
-            "400": {
-              "w": 233,
-              "h": 400
-            },
             "full": {
               "h": 516,
               "w": 300
@@ -2255,39 +1985,6 @@
       },
       "type": "object",
       "properties": {
-        "1": {
-          "$ref": "#/definitions/generatedObject"
-        },
-        "2": {
-          "$ref": "#/definitions/generatedObject"
-        },
-        "3": {
-          "$ref": "#/definitions/generatedObject"
-        },
-        "4": {
-          "$ref": "#/definitions/generatedObject"
-        },
-        "5": {
-          "$ref": "#/definitions/generatedObject"
-        },
-        "6": {
-          "$ref": "#/definitions/generatedObject"
-        },
-        "7": {
-          "$ref": "#/definitions/generatedObject"
-        },
-        "8": {
-          "$ref": "#/definitions/generatedObject"
-        },
-        "9": {
-          "$ref": "#/definitions/generatedObject"
-        },
-        "10": {
-          "$ref": "#/definitions/m10"
-        },
-        "11": {
-          "$ref": "#/definitions/m10"
-        },
         "ingredients_en": {
           "$ref": "#/definitions/IngredientsEn"
         },
@@ -2308,17 +2005,6 @@
         }
       },
       "required": [
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
-        "10",
-        "11",
         "ingredients_en",
         "nutrition_en",
         "ingredients",
@@ -2331,21 +2017,7 @@
       "title": "generatedObject",
       "example": {
         "uploaded_t": 1375384725,
-        "uploader": "openfoodfacts-contributors",
-        "sizes": {
-          "100": {
-            "h": 100,
-            "w": 75
-          },
-          "400": {
-            "w": 300,
-            "h": 400
-          },
-          "full": {
-            "h": 3264,
-            "w": 2448
-          }
-        }
+        "uploader": "openfoodfacts-contributors"
       },
       "type": "object",
       "properties": {
@@ -2362,21 +2034,12 @@
       },
       "required": [
         "uploaded_t",
-        "uploader",
-        "sizes"
+        "uploader"
       ]
     },
     "Sizes": {
       "title": "Sizes",
       "example": {
-        "100": {
-          "h": 100,
-          "w": 75
-        },
-        "400": {
-          "w": 300,
-          "h": 400
-        },
         "full": {
           "h": 3264,
           "w": 2448
@@ -2384,42 +2047,12 @@
       },
       "type": "object",
       "properties": {
-        "100": {
-          "$ref": "#/definitions/m100"
-        },
-        "400": {
-          "$ref": "#/definitions/m100"
-        },
         "full": {
           "$ref": "#/definitions/Full"
         }
       },
       "required": [
-        "100",
-        "400",
         "full"
-      ]
-    },
-    "m100": {
-      "title": "m100",
-      "example": {
-        "h": 100,
-        "w": 75
-      },
-      "type": "object",
-      "properties": {
-        "h": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "w": {
-          "type": "integer",
-          "format": "int32"
-        }
-      },
-      "required": [
-        "h",
-        "w"
       ]
     },
     "Full": {
@@ -2444,44 +2077,6 @@
         "w"
       ]
     },
-    "m10": {
-      "title": "m10",
-      "example": {
-        "uploader": "stephane",
-        "uploaded_t": "1374776998",
-        "sizes": {
-          "100": {
-            "h": 75,
-            "w": 100
-          },
-          "400": {
-            "h": 300,
-            "w": 400
-          },
-          "full": {
-            "h": 2448,
-            "w": 3264
-          }
-        }
-      },
-      "type": "object",
-      "properties": {
-        "uploader": {
-          "type": "string"
-        },
-        "uploaded_t": {
-          "type": "string"
-        },
-        "sizes": {
-          "$ref": "#/definitions/Sizes"
-        }
-      },
-      "required": [
-        "uploader",
-        "uploaded_t",
-        "sizes"
-      ]
-    },
     "IngredientsEn": {
       "title": "IngredientsEn",
       "example": {
@@ -2489,18 +2084,6 @@
         "geometry": "1355x473-777-2377",
         "normalize": null,
         "sizes": {
-          "100": {
-            "h": 35,
-            "w": 100
-          },
-          "200": {
-            "w": 200,
-            "h": 70
-          },
-          "400": {
-            "w": 400,
-            "h": 140
-          },
           "full": {
             "w": 1355,
             "h": 473
@@ -2542,18 +2125,6 @@
     "Sizes11": {
       "title": "Sizes11",
       "example": {
-        "100": {
-          "h": 35,
-          "w": 100
-        },
-        "200": {
-          "w": 200,
-          "h": 70
-        },
-        "400": {
-          "w": 400,
-          "h": 140
-        },
         "full": {
           "w": 1355,
           "h": 473
@@ -2561,23 +2132,11 @@
       },
       "type": "object",
       "properties": {
-        "100": {
-          "$ref": "#/definitions/m100"
-        },
-        "200": {
-          "$ref": "#/definitions/m100"
-        },
-        "400": {
-          "$ref": "#/definitions/m100"
-        },
         "full": {
           "$ref": "#/definitions/Full"
         }
       },
       "required": [
-        "100",
-        "200",
-        "400",
         "full"
       ]
     },
@@ -2588,18 +2147,6 @@
         "geometry": "1303x2325-798-147",
         "normalize": "checked",
         "sizes": {
-          "100": {
-            "h": 100,
-            "w": 56
-          },
-          "200": {
-            "h": 200,
-            "w": 112
-          },
-          "400": {
-            "h": 400,
-            "w": 224
-          },
           "full": {
             "h": 2325,
             "w": 1303
@@ -2647,18 +2194,6 @@
         "normalize": "false",
         "white_magic": "false",
         "sizes": {
-          "100": {
-            "w": 58,
-            "h": 100
-          },
-          "200": {
-            "h": 200,
-            "w": 116
-          },
-          "400": {
-            "w": 233,
-            "h": 400
-          },
           "full": {
             "h": 516,
             "w": 300
@@ -2849,14 +2384,6 @@
       "title": "m18",
       "example": {
         "sizes": {
-          "100": {
-            "h": 56,
-            "w": 100
-          },
-          "400": {
-            "w": 400,
-            "h": 225
-          },
           "full": {
             "w": 2612,
             "h": 1468
@@ -2890,18 +2417,6 @@
         "imgid": "2",
         "normalize": "false",
         "sizes": {
-          "100": {
-            "h": 85,
-            "w": 100
-          },
-          "200": {
-            "w": 200,
-            "h": 170
-          },
-          "400": {
-            "w": 400,
-            "h": 339
-          },
           "full": {
             "w": 771,
             "h": 654
@@ -2976,14 +2491,6 @@
         "normalize": "false",
         "white_magic": "false",
         "sizes": {
-          "100": {
-            "h": 100,
-            "w": 73
-          },
-          "200": {
-            "h": 200,
-            "w": 146
-          },
           "400": {
             "w": 292,
             "h": 400
@@ -3057,18 +2564,6 @@
         "imgid": "17",
         "normalize": "0",
         "sizes": {
-          "100": {
-            "h": 51,
-            "w": 100
-          },
-          "200": {
-            "h": 102,
-            "w": 200
-          },
-          "400": {
-            "h": 203,
-            "w": 400
-          },
           "full": {
             "h": 1200,
             "w": 2359
@@ -3151,18 +2646,6 @@
         "y1": "0",
         "geometry": "0x0-0-0",
         "sizes": {
-          "100": {
-            "h": 100,
-            "w": 75
-          },
-          "200": {
-            "h": 200,
-            "w": 150
-          },
-          "400": {
-            "h": 400,
-            "w": 299
-          },
           "full": {
             "w": 1765,
             "h": 2360

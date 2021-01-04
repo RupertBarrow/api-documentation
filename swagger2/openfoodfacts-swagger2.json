@@ -1,147 +1,174 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "1.0",
-    "title": "Open Food Facts API Documentation",
     "description": "This page contains the following information:\n\n- [About](#about)\n- [Data Disclaimer](#data-disclaimer)\n- [Use](#use)\n- [Domains](#domains)\n- [Endpoint](#endpoint)\n- [Version](#version)\n- [Authentication](#authentication)\n- [Servers](#servers)\n- [Security](#security)\n- [Error Codes](#error-codes)\n- [Rate limit](#rate-limit)\n- [Preliminary Considerations](#preliminary-considerations)\n- [License](#license)\n- [API Conventions](#api-conventions)\n- [Bugs](#bugs)\n- [Downloading Data](#downloading-data)\n- [Exporting Data](#exporting-data)\n- [API Roadmap](#api-roadmap)\n- [Other Projects](#other-projects)\n\n\n## About\nAs a developer, the Open Food Facts API allows you to get information and contribute to the products database. You can create great apps to help people make better food choices and also provide data to enhance the database. Check out how others are making use of the API at https://world.openfoodfacts.org/discover#reuses\n\n----\n\n## Data Disclaimer\nThe data contained in the Open Food Facts database are collected by users willing to selflessly contribute to the Open Food Facts initiative. Therefore, no guarantees can be made for the accuracy, completeness, or reliability of the information provided. The user assumes the entire risk related to the use of data. You (or your users) are very welcome to provide fixes using the __WRITE__ API.\n\n----\n\n## Use\nYou can use the OFF API for production cases, as long as 1 API call equals 1 real scan by a user.\n\n----\n\n## Domains\nYou can either use the global domain (https://world.openfoodfacts.org) or the local domains (https://fr.openfoodfacts.org, https://en.openfoodfacts.org, …) for your API queries.\n\n----\n\n## Endpoint\nThe Open Food Facts base endpoint is: https://world.openfoodfacts.org\n\n----\n\n## Version\nThe current version of the API is 0.\n\n----\n\n## Authentication\n\n__READ and SEARCH operations__\n\nNo authentication is required.\n\nHowever, you have to add a User-Agent HTTP Header with the name of your app, the version, system and a url (if any), not to be blocked by mistake.\n\nFor example: `User-Agent: NameOfYourApp - Android - Version 1.0 - www.yourappwebsite.com`\n\n__WRITE operations__ \n\nNo authentication is required for adding new products or adding images.\n\nBasic authentication is required for editing existing products. You can create a global account to let the users of your app contribute without having to create individual credentials in the Open Food Facts site. \n\nParameters\n* `user_id`: YourUserID\n* `password`: YourPassword\n\n----\n\n## Servers\nYou can do READ/SEARCH/WRITE operations using the production server. \nTo make tests for WRITE operations, use  https://world.openfoodfacts.net (User:off, Password:off).\n\n----\n\n## Security\nUse the SSL version of the API: https://world.openfoodfacts.org\n\n----\n\n## Error Codes\n* __Product does not exist__ - HTTP code 200 + \"status_verbose\" : \"product not found\" + \"Status\" : 0.\n     The request format is correct, but the product code does not exist in the database.\n* __Wrong Password__ - HTTP code 200 + an HTML page with a link to log in.\n     The request format is correct, but basic authentication is missing or the password entered is not correct.\n* __Server down__ - HTTP codes 502/503/500\n* __Redirect to another product__ - HTTP code 301\n\n__Disclaimer:__ The HTML code 404 is never thrown, even when a wrong password is entered.  A feature request has been created and we are already working to fix this.\n\n----\n\n## Rate limit\nThe API intended use is for apps, with one real user scan = one query. Automated queries are not supported. Please let us know in advance if you expect a high volume of calls. \n\nFor more information, see: https://world.openfoodfacts.org/data\n\n----\n\n## Preliminary Considerations\nThe API development is in progress. This has several implications:\n\n* Open Food Facts and food products are constantly evolving.\n* Assume that data is less reliable until the product is marked as complete. You might want to filter incomplete products to avoid issues (this is especially relevant for allergens or food intolerances). Let your end users know about this and encourage them to exercise caution. Be upfront about possible risks. You can use the following template to inform your users: _The data provided to you by this app are retrieved from the Open Food Facts database. No guarantees can be made for the accuracy, completeness, or reliability of the information provided. The data are provided “as is” and the originating source for the data (Open Food Facts) is not liable for any damages arising out of the use of the data._\n* Join our Slack Channel (https://slack-ssl-openfoodfacts.herokuapp.com) to get help, to share your thoughts, to let us know what you build with the API (contact@openfoodfacts.org or in the #API channel) or if you want to use WRITE operations.\n* You can also join the mailing list to be notified when improvements or changes are made to the API (we send only relevant information and very few e-mails. Don't worry, you won't be spammed). To join the mailing list, send an empty e-mail to api-subscribe@openfoodfacts.org to subscribe. \n\n----\n\n## License\n* Do not send copyrighted photos or information using the API. Everything you send is OdBL for the data (https://opendatacommons.org/licenses/odbl/summary/index.html) and CC-BY-SA for the pictures (https://creativecommons.org/licenses/by-sa/4.0/). If you don't own the data, you bear all the legal consequences.\n* Mention Open Food Facts as the source of the data.\n* Do not mix with other product databases (since you are then required to release them under OdBL, at your own legal risk).\n* Share any additions under the OdBL with the community. \n* By using any part of the API you have read and understood the license.\n\n----\n\n## API Conventions\n* Fields that end with `_t` are dates in the UNIX timestamp format (number of seconds since Jan 1st 1970)\n* Fields that end with `_datetime` are dates in the ISO8601 format: yyyy-mm-ddThh:mn:ssZ\n* Fields that end with `_tags` are comma-separated list of tags (e.g. categories_tags is the set of normalized tags computer from the categories field)\n* Fields that end with a language 2 letter code (e.g. fr for French) is the set of tags in that language\n* Fields that end with `_100g` correspond to the amount of a nutriment (in g) for 100 g or 100 ml of product\n\n----\n\n## Bugs\nDo not hesitate to file a bug if you find an issue in the API or need an improvement.\nYou can fill out the issue report on GitHub:\n\n* General bugs: https://github.com/openfoodfacts/openfoodfacts-server/issues\n* API bugs: https://github.com/openfoodfacts/openfoodfacts-server/labels/api\n* API milestone: https://github.com/openfoodfacts/openfoodfacts-server/milestone/8\n\n----\n\n## Downloading Data\nIt is recommended to use the live API to get updated data about products. However, in some cases, you may need a snapshot. \nThey are available at:\n\n* https://world.openfoodfacts.org/data (all data)\n* https://countrycode.openfoodfacts.org/data (data for a specific country). Example: https://us.openfoodfacts.org/data - (See the list of countries in the __Countries__ taxonomy)\n\n----\n\n## Exporting Data\n* File Encoding: The file encoding is Unicode UTF-8.\n* CSV API: The character that separates fields is < tab > (tabulation).\n* JSON\n\n----\n\n## API Roadmap\nAPI Redesign: The API is far from perfect. It's been decided to fix the most urgent bugs and start planning for a new version, more compliant with modern API standards. We need all the help we can get. Please join us on the #api Slack channel.\n\n* Project API: Additives\n* Project API: States\n* Project API: Statistics\n* Project API: Statistics Entry Dates\n\n----\n\n## Other Projects\n\n* Open Pet Food Facts\n* Open Beauty Facts\n* Open Products Facts",
+    "version": "0",
+    "title": "Open Food Facts API Documentation",
     "contact": {}
   },
-  "basePath": "/api/v0",
+  "basePath": "",
+  "tags": [
+    {
+      "name": "Misc",
+      "description": ""
+    }
+  ],
   "schemes": [
     "https"
   ],
   "consumes": [
-    "application/json"
+    "application/x-www-form-urlencoded"
   ],
   "produces": [
-    "application/json"
+    "application/x-www-form-urlencoded"
   ],
   "paths": {
-    "/product/{id}": {
+    "/api/v0/product/{id}": {
       "get": {
-        "description": "GET requests allow you to make two types of calls: READ and SEARCH. This scenario describes how to make GET READ calls to retrieve the nutritional data of products with a barcode.\n\nThis page contains the following information:\n\n- [GET Read Scenario](#get-read-scenario)\n- [Structure of the Call](#structure-of-the-call)\n  * [Authentication and Header](#authentication-and-header)\n  * [Subdomain](#subdomain)\n  * [API Version](#api-version)\n  * [Product Barcode](#product-barcode)\n\n# GET Read Scenario\n\nMeet Dave. Dave is an active Open Food Facts contributor and a developer who wants to build HealthyFoodChoices, an Android app aimed at concious consumers that buy healthy products.\n\n![alt text](https://static.openfoodfacts.org/images/svg/donate-icon.svg \"Dave\")\n\nHealthyFoodChoices will provide information on healthy foods available in the place where their users live. The users can narrow down the results by applying different filters and save their search criteria so that the app shows them the products that match their preferences next time they use it.\n\nTo identify the potential users' needs, Dave has met with some concious consumers. Anna is one of them. Anna doesn't drink soda, but her nephew does. He will visit her soon, and she wants to compare the nutrition facts of two cola brands, and its variants (diet, zero, and so on) to decide which one to buy. Dave wants his app to make an API call to provide her with this information. \n\n# Structure of the Call\n\n----\n\n## Authentication and Header\n\nTo make the API query that returns the products that might be interesting for Anna, Dave doesn't need to authenticate. However, he has to add a User-Agent HTTP Header with the name of his app, the version, system and a url (if any), not to be blocked by mistake. \n\nIn this case, that would be: `User-Agent: HealthyFoodChoices - Android - Version 1.0`\n\n----\n\n## Subdomain\n\nSince Anna lives in NY, Dave wants to define the subdomain for the query as `us`. The subdomain automatically defines the country code (`cc`) and language of the interface (`lc`).  \n\nThe country code determines that only the products sold in the US are displayed. The language of the interface for the country code `us` is English.\n\nIn this case:\n\nhttps://us.openfoodfacts.org\n\n----\n\n## API Version\n\nThe current version number of the Open Food Facts API is v0. \n\nhttps://us.openfoodfacts.org/api/v0\n\n----\n\n## Product Barcode\n\nAfter the version number, the word \"product\", followed by its barcode must be added:\n\nhttps://us.openfoodfacts.org/api/v0/product/<barcode>\n\nThe app will provide Anna with information about additives, sugars and nutriscore of different types of colas, to help her make her purchase decision.\n\nAnna selects the products she wants to compare in the application (Coca-Cola, Pepsi, Coca-Cola diet, Coca-Cola zero and Pepsi diet). The app retrieves the corresponding barcodes and makes the following calls: \n\n* Pepsico Pepsi Cola Soda:\n    https://us.openfoodfacts.org/api/v0/product/01223004\n\n* Coca-Cola Classic Coke Soft Drink\n    https://us.openfoodfacts.org/api/v0/product/04963406\n\n* Diet Pepsi\n    https://us.openfoodfacts.org/api/v0/product/069000019832\n\n* Coca-Cola Zero\n    https://us.openfoodfacts.org/api/v0/product/5000112519945",
-        "summary": "Reading the nutrition facts of a product",
         "tags": [
           "Misc"
         ],
+        "summary": "Reading the nutrition facts of a product",
+        "description": "GET requests allow you to make two types of calls: READ and SEARCH. This scenario describes how to make GET READ calls to retrieve the nutritional data of products with a barcode.\n\nThis page contains the following information:\n\n- [GET Read Scenario](#get-read-scenario)\n- [Structure of the Call](#structure-of-the-call)\n  * [Authentication and Header](#authentication-and-header)\n  * [Subdomain](#subdomain)\n  * [API Version](#api-version)\n  * [Product Barcode](#product-barcode)\n\n# GET Read Scenario\n\nMeet Dave. Dave is an active Open Food Facts contributor and a developer who wants to build HealthyFoodChoices, an Android app aimed at concious consumers that buy healthy products.\n\n![alt text](https://static.openfoodfacts.org/images/svg/donate-icon.svg \"Dave\")\n\nHealthyFoodChoices will provide information on healthy foods available in the place where their users live. The users can narrow down the results by applying different filters and save their search criteria so that the app shows them the products that match their preferences next time they use it.\n\nTo identify the potential users' needs, Dave has met with some concious consumers. Anna is one of them. Anna doesn't drink soda, but her nephew does. He will visit her soon, and she wants to compare the nutrition facts of two cola brands, and its variants (diet, zero, and so on) to decide which one to buy. Dave wants his app to make an API call to provide her with this information. \n\n# Structure of the Call\n\n----\n\n## Authentication and Header\n\nTo make the API query that returns the products that might be interesting for Anna, Dave doesn't need to authenticate. However, he has to add a User-Agent HTTP Header with the name of his app, the version, system and a url (if any), not to be blocked by mistake. \n\nIn this case, that would be: `User-Agent: HealthyFoodChoices - Android - Version 1.0`\n\n----\n\n## Subdomain\n\nSince Anna lives in NY, Dave wants to define the subdomain for the query as `us`. The subdomain automatically defines the country code (`cc`) and language of the interface (`lc`).  \n\nThe country code determines that only the products sold in the US are displayed. The language of the interface for the country code `us` is English.\n\nIn this case:\n\nhttps://us.openfoodfacts.org\n\n----\n\n## API Version\n\nThe current version number of the Open Food Facts API is v0. \n\nhttps://us.openfoodfacts.org/api/v0\n\n----\n\n## Product Barcode\n\nAfter the version number, the word \"product\", followed by its barcode must be added:\n\nhttps://us.openfoodfacts.org/api/v0/product/<barcode>\n\nThe app will provide Anna with information about additives, sugars and nutriscore of different types of colas, to help her make her purchase decision.\n\nAnna selects the products she wants to compare in the application (Coca-Cola, Pepsi, Coca-Cola diet, Coca-Cola zero and Pepsi diet). The app retrieves the corresponding barcodes and makes the following calls: \n\n* Pepsico Pepsi Cola Soda:\n    https://us.openfoodfacts.org/api/v0/product/01223004\n\n* Coca-Cola Classic Coke Soft Drink\n    https://us.openfoodfacts.org/api/v0/product/04963406\n\n* Diet Pepsi\n    https://us.openfoodfacts.org/api/v0/product/069000019832\n\n* Coca-Cola Zero\n    https://us.openfoodfacts.org/api/v0/product/5000112519945",
         "operationId": "Readingthenutritionfactsofaproduct",
-        "deprecated": false,
         "produces": [
-          "application/json"
+          "application/x-www-form-urlencoded"
         ],
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "",
             "required": true,
-            "type": "string",
-            "description": ""
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
             "description": "",
+            "headers": {},
             "schema": {
               "$ref": "#/definitions/Searchingforaspecificproduct"
-            },
-            "headers": {}
+            }
           }
-        }
+        },
+        "deprecated": false
       }
     },
-    "/search.pl": {
+    "/cgi/search.pl": {
       "get": {
-        "description": "GET requests allow you to make two types of calls: READ and SEARCH. This scenario describes how to make a GET SEARCH call to retrieve the nutritional data of products that comply with your search criteria.\n\nThis topic contains the following information:\n\n- [GET Search Scenario](#get-search-scenario)\n- [Structure of the Call](#structure-of-the-call)\n  * [Authentication and Header](#authentication-and-header)\n  * [Subdomain](#subdomain)\n  * [Query Parameters](#query-parameters)\n\n\n# GET Search Scenario\n\nMeet Dave. Dave is an Open Food Facts contributor and a developer. He wants to  build HealthyFoodChoices, an Android app aimed at concious consumers that buy local and healthy products. \n\n![alt text](https://static.openfoodfacts.org/images/svg/donate-icon.svg \"Dave\")\n\nHealthyFoodChoices will provide information on healthy foods by country. The users can narrow down the results by applying different filters and save their search criteria so that the app shows them the products that match their preferences next time they use it. \n\nTo identify the potential users' needs, Dave has met with some concious consumers. Anna is one of them. This 36-year old New Yorker follows a plant-based diet and wants to avoid the intake of palm oil. She wants to find a breakfast cereal brand that does not use palm oil or additives and has a good nutriscore (A).\n\n# Structure of the Call\n\n----\n\n## Authentication and Header\n\nTo make the API query that returns the products that might be interesting for Anna, Dave doesn't need to authenticate. However, he has to add a User-Agent HTTP Header with the name of his app, the version, system and a url (if any), not to be blocked by mistake. \n\nIn this case, that would be: `User-Agent: HealthyFoodChoices - Android - Version 1.0`\n\n----\n\n## Subdomain\n\nSince Anna lives in NY, Dave wants to define the subdomain for the query as us. The subdomain automatically defines the country code (`cc`) and language of the interface (`lc`). \n\nThe country code determines that only the products sold in the US are displayed. The language of the interface for the country code US is English.\n\nIn this case:\n\nhttps://us.openfoodfacts.org\n\n----\n\n## Query Parameters\n\nDave wants to fine-tune the query to provide Anna with the products that match her buying preferences. To do so, he wants to drill down the results to display only breakfast cereals.\n\nFirst, he adds the following sequence after the https call: `/cgi/search.pl?` (all search queries need to include this)\n\nThen, he defines some tags and the apropriate values: `action=process&tagtype_0=categories&tag_contains_0=contains&tag_0=breakfast_cereals`\n\nwhere: \n\n* `action` introduces the action to be performed (process)\n* `tagtype_0` adds the first search criterion (categories)\n* `tag_contains_0=contains` determines that the results should be included (note that you can exclude products from the search)\n* `tag_0` defines the category to be filtered by (breakfast_cereals)\n\n__Note:__ The parameters are concatenated with &\n\nTo retrieve breakfast cereals sold in the US, Dave makes the following call: https://us.openfoodfacts.org/cgi/search.pl?action=process&tagtype_0=categories&tag_contains_0=contains&tag_0=breakfast_cereals\n\nWith this query, the nutrition facts of more than 200 products are displayed.\n\nThen, Dave wants to exclude the products that contain ingredients from palm oil. He adds a new parameter to the query: \n\n* `ingredients_from_palm_oil=without`\n\nThis parameter excludes the products that might contain palm oil ingredients from the search.\n\nhttps://us.openfoodfacts.org/cgi/search.pl?action=process&tagtype_0=categories&tag_contains_0=contains&tag_0=breakfast_cereals&ingredients_from_palm_oil=without\n\nNext, Dave adds another parameter to exclude the products that contain additives:\n\n* `additives=without`\n\nThe query is as follows:\n\nhttps://us.openfoodfacts.org/cgi/search.pl?action=process&tagtype_0=categories&tag_contains_0=contains&tag_0=breakfast_cereals&ingredients_from_palm_oil=without&additives=without\n\nFinally, Dave adds another parameter to include only products with a nutriscore A. The nutriscore is a nutrition grade determined by the amount of healthy and unhealthy nutrients.\n\n* `tagtype_1=nutrition_grade`\n* `tag_contains_1=contains`\n* `tag_1=A`\n\nThe complete query looks like this:\n\nhttps://us.openfoodfacts.org/cgi/search.pl?action=process&tagtype_0=categories&tag_contains_0=contains&tag_0=breakfast_cereals&tagtype_1=nutrition_grades&tag_contains_1=contains&tag_1=A&additives=without&ingredients_from_palm_oil=without\n\nAdd the json=true parameter to avoid scraping.\n\nhttps://us.openfoodfacts.org/cgi/search.pl?action=process&tagtype_0=categories&tag_contains_0=contains&tag_0=breakfast_cereals&tagtype_1=nutrition_grades&tag_contains_1=contains&tag_1=A&additives=without&ingredients_from_palm_oil=without&json=true\n\n\nAnna can see now at a glance which products match her search criteria. In this case, around 20 brands of breakfast cereals.",
-        "summary": "Searching for products",
         "tags": [
           "Misc"
         ],
+        "summary": "Searching for products",
+        "description": "GET requests allow you to make two types of calls: READ and SEARCH. This scenario describes how to make a GET SEARCH call to retrieve the nutritional data of products that comply with your search criteria.\n\nThis topic contains the following information:\n\n- [GET Search Scenario](#get-search-scenario)\n- [Structure of the Call](#structure-of-the-call)\n  * [Authentication and Header](#authentication-and-header)\n  * [Subdomain](#subdomain)\n  * [Query Parameters](#query-parameters)\n\n\n# GET Search Scenario\n\nMeet Dave. Dave is an Open Food Facts contributor and a developer. He wants to  build HealthyFoodChoices, an Android app aimed at concious consumers that buy local and healthy products. \n\n![alt text](https://static.openfoodfacts.org/images/svg/donate-icon.svg \"Dave\")\n\nHealthyFoodChoices will provide information on healthy foods by country. The users can narrow down the results by applying different filters and save their search criteria so that the app shows them the products that match their preferences next time they use it. \n\nTo identify the potential users' needs, Dave has met with some concious consumers. Anna is one of them. This 36-year old New Yorker follows a plant-based diet and wants to avoid the intake of palm oil. She wants to find a breakfast cereal brand that does not use palm oil or additives and has a good nutriscore (A).\n\n# Structure of the Call\n\n----\n\n## Authentication and Header\n\nTo make the API query that returns the products that might be interesting for Anna, Dave doesn't need to authenticate. However, he has to add a User-Agent HTTP Header with the name of his app, the version, system and a url (if any), not to be blocked by mistake. \n\nIn this case, that would be: `User-Agent: HealthyFoodChoices - Android - Version 1.0`\n\n----\n\n## Subdomain\n\nSince Anna lives in NY, Dave wants to define the subdomain for the query as us. The subdomain automatically defines the country code (`cc`) and language of the interface (`lc`). \n\nThe country code determines that only the products sold in the US are displayed. The language of the interface for the country code US is English.\n\nIn this case:\n\nhttps://us.openfoodfacts.org\n\n----\n\n## Query Parameters\n\nDave wants to fine-tune the query to provide Anna with the products that match her buying preferences. To do so, he wants to drill down the results to display only breakfast cereals.\n\nFirst, he adds the following sequence after the https call: `/cgi/search.pl?` (all search queries need to include this)\n\nThen, he defines some tags and the apropriate values: `action=process&tagtype_0=categories&tag_contains_0=contains&tag_0=breakfast_cereals`\n\nwhere: \n\n* `action` introduces the action to be performed (process)\n* `tagtype_0` adds the first search criterion (categories)\n* `tag_contains_0=contains` determines that the results should be included (note that you can exclude products from the search)\n* `tag_0` defines the category to be filtered by (breakfast_cereals)\n\n__Note:__ The parameters are concatenated with &\n\nTo retrieve breakfast cereals sold in the US, Dave makes the following call: https://us.openfoodfacts.org/cgi/search.pl?action=process&tagtype_0=categories&tag_contains_0=contains&tag_0=breakfast_cereals\n\nWith this query, the nutrition facts of more than 200 products are displayed.\n\nThen, Dave wants to exclude the products that contain ingredients from palm oil. He adds a new parameter to the query: \n\n* `ingredients_from_palm_oil=without`\n\nThis parameter excludes the products that might contain palm oil ingredients from the search.\n\nhttps://us.openfoodfacts.org/cgi/search.pl?action=process&tagtype_0=categories&tag_contains_0=contains&tag_0=breakfast_cereals&ingredients_from_palm_oil=without\n\nNext, Dave adds another parameter to exclude the products that contain additives:\n\n* `additives=without`\n\nThe query is as follows:\n\nhttps://us.openfoodfacts.org/cgi/search.pl?action=process&tagtype_0=categories&tag_contains_0=contains&tag_0=breakfast_cereals&ingredients_from_palm_oil=without&additives=without\n\nFinally, Dave adds another parameter to include only products with a nutriscore A. The nutriscore is a nutrition grade determined by the amount of healthy and unhealthy nutrients.\n\n* `tagtype_1=nutrition_grade`\n* `tag_contains_1=contains`\n* `tag_1=A`\n\nThe complete query looks like this:\n\nhttps://us.openfoodfacts.org/cgi/search.pl?action=process&tagtype_0=categories&tag_contains_0=contains&tag_0=breakfast_cereals&tagtype_1=nutrition_grades&tag_contains_1=contains&tag_1=A&additives=without&ingredients_from_palm_oil=without\n\nAdd the json=true parameter to avoid scraping.\n\nhttps://us.openfoodfacts.org/cgi/search.pl?action=process&tagtype_0=categories&tag_contains_0=contains&tag_0=breakfast_cereals&tagtype_1=nutrition_grades&tag_contains_1=contains&tag_1=A&additives=without&ingredients_from_palm_oil=without&json=true\n\n\nAnna can see now at a glance which products match her search criteria. In this case, around 20 brands of breakfast cereals.",
         "operationId": "Searchingforproducts",
-        "deprecated": false,
         "produces": [
-          "application/json"
+          "application/x-www-form-urlencoded"
         ],
         "parameters": [
           {
+            "name": "search_terms",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "json",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "type": "boolean"
+          },
+
+
+          {
             "name": "action",
             "in": "query",
-            "required": true,
-            "type": "string",
-            "description": ""
+            "description": "",
+            "required": false,
+            "type": "string"
           },
           {
             "name": "tagtype_0",
             "in": "query",
-            "required": true,
-            "type": "string",
-            "description": ""
+            "description": "",
+            "required": false,
+            "type": "string"
           },
           {
             "name": "tag_contains_0",
             "in": "query",
-            "required": true,
-            "type": "string",
-            "description": ""
+            "description": "",
+            "required": false,
+            "type": "string"
           },
           {
             "name": "tag_0",
             "in": "query",
-            "required": true,
-            "type": "string",
-            "description": ""
+            "description": "",
+            "required": false,
+            "type": "string"
           },
           {
             "name": "tagtype_1",
             "in": "query",
-            "required": true,
-            "type": "string",
-            "description": ""
+            "description": "",
+            "required": false,
+            "type": "string"
           },
           {
             "name": "tag_contains_1",
             "in": "query",
-            "required": true,
-            "type": "string",
-            "description": ""
+            "description": "",
+            "required": false,
+            "type": "string"
           },
           {
             "name": "tag_1",
             "in": "query",
-            "required": true,
-            "type": "string",
-            "description": ""
+            "description": "",
+            "required": false,
+            "type": "string"
           },
           {
             "name": "additives",
             "in": "query",
-            "required": true,
-            "type": "string",
-            "description": ""
+            "description": "",
+            "required": false,
+            "type": "string"
           },
           {
             "name": "ingredients_from_palm_oil",
             "in": "query",
-            "required": true,
-            "type": "string",
-            "description": ""
+            "description": "",
+            "required": false,
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
             "description": "",
+            "headers": {},
             "schema": {
               "$ref": "#/definitions/Searchingforproducts"
-            },
-            "headers": {}
+            }
           }
-        }
+        },
+        "deprecated": false
       }
     }
   },
   "definitions": {
     "Searchingforaspecificproduct": {
-      "title": "Searchingforaspecificproduct",
       "type": "object",
+      "required": [
+        "code",
+        "product",
+        "status",
+        "status_verbose"
+      ],
       "properties": {
         "status_verbose": {
           "type": "string"
@@ -157,16 +184,211 @@
           "type": "string"
         }
       },
-      "required": [
-        "status_verbose",
-        "product",
-        "status",
-        "code"
-      ]
+      "title": "Searchingforaspecificproduct"
     },
     "Product": {
-      "title": "Product",
       "type": "object",
+      "required": [
+        "_id",
+        "_keywords",
+        "additives_debug_tags",
+        "additives_n",
+        "additives_old_n",
+        "additives_old_tags",
+        "additives_original_tags",
+        "additives_prev_original_tags",
+        "additives_tags",
+        "additives_tags_n",
+        "allergens",
+        "allergens_debug_tags",
+        "allergens_from_ingredients",
+        "allergens_from_user",
+        "allergens_hierarchy",
+        "allergens_tags",
+        "amino_acids_prev_tags",
+        "amino_acids_tags",
+        "brands",
+        "brands_debug_tags",
+        "brands_tags",
+        "categories",
+        "categories_hierarchy",
+        "categories_lc",
+        "categories_tags",
+        "checkers_tags",
+        "cities_tags",
+        "code",
+        "codes_tags",
+        "compared_to_category",
+        "complete",
+        "completed_t",
+        "completeness",
+        "correctors_tags",
+        "countries",
+        "countries_debug_tags",
+        "countries_hierarchy",
+        "countries_lc",
+        "countries_tags",
+        "created_t",
+        "creator",
+        "data_quality_bugs_tags",
+        "data_quality_errors_tags",
+        "data_quality_info_tags",
+        "data_quality_tags",
+        "data_quality_warnings_tags",
+        "debug_param_sorted_langs",
+        "editors",
+        "editors_tags",
+        "emb_codes",
+        "emb_codes_20141016",
+        "emb_codes_debug_tags",
+        "emb_codes_orig",
+        "emb_codes_tags",
+        "entry_dates_tags",
+        "expiration_date",
+        "expiration_date_debug_tags",
+        "fruits-vegetables-nuts_100g_estimate",
+        "generic_name",
+        "generic_name_en",
+        "generic_name_en_debug_tags",
+        "id",
+        "image_front_small_url",
+        "image_front_thumb_url",
+        "image_front_url",
+        "image_ingredients_small_url",
+        "image_ingredients_thumb_url",
+        "image_ingredients_url",
+        "image_nutrition_small_url",
+        "image_nutrition_thumb_url",
+        "image_nutrition_url",
+        "image_small_url",
+        "image_thumb_url",
+        "image_url",
+        "images",
+        "informers_tags",
+        "ingredients",
+        "ingredients_analysis_tags",
+        "ingredients_debug",
+        "ingredients_from_or_that_may_be_from_palm_oil_n",
+        "ingredients_from_palm_oil_n",
+        "ingredients_from_palm_oil_tags",
+        "ingredients_hierarchy",
+        "ingredients_ids_debug",
+        "ingredients_n",
+        "ingredients_n_tags",
+        "ingredients_original_tags",
+        "ingredients_tags",
+        "ingredients_text",
+        "ingredients_text_debug",
+        "ingredients_text_en",
+        "ingredients_text_en_debug_tags",
+        "ingredients_text_with_allergens",
+        "ingredients_text_with_allergens_en",
+        "ingredients_that_may_be_from_palm_oil_n",
+        "ingredients_that_may_be_from_palm_oil_tags",
+        "interface_version_created",
+        "interface_version_modified",
+        "labels",
+        "labels_hierarchy",
+        "labels_lc",
+        "labels_prev_hierarchy",
+        "labels_prev_tags",
+        "labels_tags",
+        "lang",
+        "lang_debug_tags",
+        "languages",
+        "languages_codes",
+        "languages_hierarchy",
+        "languages_tags",
+        "last_edit_dates_tags",
+        "last_editor",
+        "last_image_dates_tags",
+        "last_image_t",
+        "last_modified_by",
+        "last_modified_t",
+        "lc",
+        "link",
+        "link_debug_tags",
+        "manufacturing_places",
+        "manufacturing_places_debug_tags",
+        "manufacturing_places_tags",
+        "max_imgid",
+        "minerals_prev_tags",
+        "minerals_tags",
+        "misc_tags",
+        "new_additives_n",
+        "no_nutrition_data",
+        "nova_group",
+        "nova_group_debug",
+        "nova_groups",
+        "nova_groups_tags",
+        "nucleotides_prev_tags",
+        "nucleotides_tags",
+        "nutrient_levels",
+        "nutrient_levels_tags",
+        "nutriments",
+        "nutriscore_grade",
+        "nutriscore_points",
+        "nutriscore_score",
+        "nutrition_data",
+        "nutrition_data_per",
+        "nutrition_data_per_debug_tags",
+        "nutrition_data_prepared",
+        "nutrition_data_prepared_per",
+        "nutrition_data_prepared_per_debug_tags",
+        "nutrition_grade_fr",
+        "nutrition_grades",
+        "nutrition_grades_tags",
+        "nutrition_score_beverage",
+        "nutrition_score_debug",
+        "nutrition_score_warning_no_fruits_vegetables_nuts",
+        "origins",
+        "origins_debug_tags",
+        "origins_tags",
+        "other_nutritional_substances_tags",
+        "packaging",
+        "packaging_debug_tags",
+        "packaging_tags",
+        "photographers_tags",
+        "pnns_groups_1",
+        "pnns_groups_1_tags",
+        "pnns_groups_2",
+        "pnns_groups_2_tags",
+        "popularity_tags",
+        "product_name",
+        "product_name_en",
+        "product_name_en_debug_tags",
+        "product_quantity",
+        "purchase_places",
+        "purchase_places_debug_tags",
+        "purchase_places_tags",
+        "quantity",
+        "quantity_debug_tags",
+        "rev",
+        "scans_n",
+        "selected_images",
+        "serving_quantity",
+        "serving_size",
+        "serving_size_debug_tags",
+        "sortkey",
+        "states",
+        "states_hierarchy",
+        "states_tags",
+        "stores",
+        "stores_debug_tags",
+        "stores_tags",
+        "traces",
+        "traces_debug_tags",
+        "traces_from_ingredients",
+        "traces_from_user",
+        "traces_hierarchy",
+        "traces_tags",
+        "unique_scans_n",
+        "unknown_ingredients_n",
+        "unknown_nutrients_tags",
+        "update_key",
+        "vitamins_prev_tags",
+        "vitamins_tags"
+      ],
       "properties": {
         "last_edit_dates_tags": {
           "type": "array",
@@ -1067,209 +1289,26 @@
           "type": "string"
         }
       },
-      "required": [
-        "last_edit_dates_tags",
-        "pnns_groups_1",
-        "nova_group_debug",
-        "ingredients_n",
-        "completeness",
-        "image_thumb_url",
-        "additives_n",
-        "packaging",
-        "ingredients_from_palm_oil_n",
-        "codes_tags",
-        "data_quality_errors_tags",
-        "ingredients_that_may_be_from_palm_oil_n",
-        "categories_hierarchy",
-        "serving_quantity",
-        "traces_from_ingredients",
-        "selected_images",
-        "image_ingredients_thumb_url",
-        "image_nutrition_small_url",
-        "vitamins_tags",
-        "labels_prev_hierarchy",
-        "ingredients_text_with_allergens_en",
-        "serving_size_debug_tags",
-        "brands_tags",
-        "additives_old_n",
-        "lang",
-        "other_nutritional_substances_tags",
-        "editors",
-        "ingredients_text_en",
-        "languages",
-        "nutriscore_points",
-        "traces_debug_tags",
-        "quantity_debug_tags",
-        "product_name_en_debug_tags",
-        "cities_tags",
-        "new_additives_n",
-        "ingredients_original_tags",
-        "nutriments",
-        "minerals_tags",
-        "purchase_places",
-        "nutrition_data_prepared",
-        "categories_lc",
-        "countries_tags",
-        "nutrition_data_per",
-        "expiration_date_debug_tags",
-        "completed_t",
-        "purchase_places_tags",
-        "nutrition_data",
-        "generic_name_en_debug_tags",
-        "emb_codes_tags",
-        "nucleotides_tags",
-        "allergens_tags",
-        "nutrition_grades_tags",
-        "labels_prev_tags",
-        "pnns_groups_2_tags",
-        "complete",
-        "image_url",
-        "additives_old_tags",
-        "entry_dates_tags",
-        "informers_tags",
-        "countries_hierarchy",
-        "purchase_places_debug_tags",
-        "manufacturing_places",
-        "image_nutrition_url",
-        "last_image_t",
-        "nutrition_grade_fr",
-        "nutriscore_grade",
-        "nutrition_grades",
-        "amino_acids_tags",
-        "ingredients_text_en_debug_tags",
-        "additives_original_tags",
-        "image_ingredients_small_url",
-        "nutrition_data_prepared_per_debug_tags",
-        "ingredients_debug",
-        "link_debug_tags",
-        "emb_codes",
-        "product_name_en",
-        "ingredients_from_palm_oil_tags",
-        "allergens_debug_tags",
-        "additives_tags",
-        "ingredients_tags",
-        "origins_debug_tags",
-        "data_quality_info_tags",
-        "image_nutrition_thumb_url",
-        "stores_debug_tags",
-        "ingredients_that_may_be_from_palm_oil_tags",
-        "product_quantity",
-        "allergens",
-        "additives_prev_original_tags",
-        "generic_name",
-        "lc",
-        "languages_tags",
-        "image_front_small_url",
-        "labels",
-        "nova_groups_tags",
-        "categories_tags",
-        "ingredients",
-        "scans_n",
-        "ingredients_n_tags",
-        "languages_codes",
-        "nova_group",
-        "debug_param_sorted_langs",
-        "states_tags",
-        "popularity_tags",
-        "traces_from_user",
-        "amino_acids_prev_tags",
-        "nova_groups",
-        "brands_debug_tags",
-        "checkers_tags",
-        "vitamins_prev_tags",
-        "traces_tags",
-        "last_image_dates_tags",
-        "ingredients_text_debug",
-        "_id",
-        "additives_debug_tags",
-        "ingredients_text_with_allergens",
-        "lang_debug_tags",
-        "_keywords",
-        "image_small_url",
-        "interface_version_modified",
-        "unknown_nutrients_tags",
-        "brands",
-        "origins",
-        "nutrition_data_prepared_per",
-        "labels_tags",
-        "update_key",
-        "fruits-vegetables-nuts_100g_estimate",
-        "data_quality_bugs_tags",
-        "data_quality_warnings_tags",
-        "countries_debug_tags",
-        "ingredients_analysis_tags",
-        "image_front_thumb_url",
-        "last_modified_by",
-        "nucleotides_prev_tags",
-        "traces",
-        "nutriscore_score",
-        "unique_scans_n",
-        "pnns_groups_2",
-        "countries_lc",
-        "last_editor",
-        "no_nutrition_data",
-        "additives_tags_n",
-        "categories",
-        "ingredients_from_or_that_may_be_from_palm_oil_n",
-        "ingredients_hierarchy",
-        "manufacturing_places_debug_tags",
-        "minerals_prev_tags",
-        "manufacturing_places_tags",
-        "expiration_date",
-        "sortkey",
-        "serving_size",
-        "photographers_tags",
-        "countries",
-        "nutrition_score_warning_no_fruits_vegetables_nuts",
-        "image_ingredients_url",
-        "interface_version_created",
-        "emb_codes_debug_tags",
-        "last_modified_t",
-        "states",
-        "ingredients_text",
-        "origins_tags",
-        "nutrient_levels_tags",
-        "code",
-        "id",
-        "link",
-        "traces_hierarchy",
-        "unknown_ingredients_n",
-        "data_quality_tags",
-        "labels_lc",
-        "ingredients_ids_debug",
-        "stores_tags",
-        "compared_to_category",
-        "allergens_hierarchy",
-        "max_imgid",
-        "emb_codes_20141016",
-        "misc_tags",
-        "languages_hierarchy",
-        "images",
-        "stores",
-        "nutrient_levels",
-        "nutrition_score_beverage",
-        "correctors_tags",
-        "rev",
-        "pnns_groups_1_tags",
-        "labels_hierarchy",
-        "generic_name_en",
-        "quantity",
-        "packaging_debug_tags",
-        "image_front_url",
-        "creator",
-        "states_hierarchy",
-        "product_name",
-        "emb_codes_orig",
-        "nutrition_data_per_debug_tags",
-        "nutrition_score_debug",
-        "editors_tags",
-        "allergens_from_user",
-        "packaging_tags",
-        "created_t",
-        "allergens_from_ingredients"
-      ]
+      "title": "Product"
     },
     "SelectedImages": {
+      "type": "object",
+      "required": [
+        "front",
+        "ingredients",
+        "nutrition"
+      ],
+      "properties": {
+        "front": {
+          "$ref": "#/definitions/Front"
+        },
+        "ingredients": {
+          "$ref": "#/definitions/Ingredients"
+        },
+        "nutrition": {
+          "$ref": "#/definitions/Nutrition"
+        }
+      },
       "title": "SelectedImages",
       "example": {
         "front": {
@@ -1305,26 +1344,26 @@
             "en": "https://static.openfoodfacts.org/images/products/04963406/nutrition_en.9.100.jpg"
           }
         }
-      },
-      "type": "object",
-      "properties": {
-        "front": {
-          "$ref": "#/definitions/Front"
-        },
-        "ingredients": {
-          "$ref": "#/definitions/Ingredients"
-        },
-        "nutrition": {
-          "$ref": "#/definitions/Nutrition"
-        }
-      },
-      "required": [
-        "front",
-        "ingredients",
-        "nutrition"
-      ]
+      }
     },
     "Front": {
+      "type": "object",
+      "required": [
+        "display",
+        "small",
+        "thumb"
+      ],
+      "properties": {
+        "display": {
+          "$ref": "#/definitions/Display"
+        },
+        "small": {
+          "$ref": "#/definitions/Small"
+        },
+        "thumb": {
+          "$ref": "#/definitions/Thumb"
+        }
+      },
       "title": "Front",
       "example": {
         "display": {
@@ -1336,71 +1375,71 @@
         "thumb": {
           "en": "https://static.openfoodfacts.org/images/products/04963406/front_en.21.100.jpg"
         }
-      },
+      }
+    },
+    "Display": {
       "type": "object",
+      "required": [
+        "en"
+      ],
       "properties": {
+        "en": {
+          "type": "string"
+        }
+      },
+      "title": "Display",
+      "example": {
+        "en": "https://static.openfoodfacts.org/images/products/04963406/front_en.21.400.jpg"
+      }
+    },
+    "Small": {
+      "type": "object",
+      "required": [
+        "en"
+      ],
+      "properties": {
+        "en": {
+          "type": "string"
+        }
+      },
+      "title": "Small",
+      "example": {
+        "en": "https://static.openfoodfacts.org/images/products/04963406/front_en.21.200.jpg"
+      }
+    },
+    "Thumb": {
+      "type": "object",
+      "required": [
+        "en"
+      ],
+      "properties": {
+        "en": {
+          "type": "string"
+        }
+      },
+      "title": "Thumb",
+      "example": {
+        "en": "https://static.openfoodfacts.org/images/products/04963406/front_en.21.100.jpg"
+      }
+    },
+    "Ingredients": {
+      "type": "object",
+      "required": [
+        "display",
+        "small",
+        "thumb"
+      ],
+      "properties": {
+        "thumb": {
+          "$ref": "#/definitions/Thumb"
+        },
         "display": {
           "$ref": "#/definitions/Display"
         },
         "small": {
           "$ref": "#/definitions/Small"
-        },
-        "thumb": {
-          "$ref": "#/definitions/Thumb"
         }
       },
-      "required": [
-        "display",
-        "small",
-        "thumb"
-      ]
-    },
-    "Display": {
-      "title": "Display",
-      "example": {
-        "en": "https://static.openfoodfacts.org/images/products/04963406/front_en.21.400.jpg"
-      },
-      "type": "object",
-      "properties": {
-        "en": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "en"
-      ]
-    },
-    "Small": {
-      "title": "Small",
-      "example": {
-        "en": "https://static.openfoodfacts.org/images/products/04963406/front_en.21.200.jpg"
-      },
-      "type": "object",
-      "properties": {
-        "en": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "en"
-      ]
-    },
-    "Thumb": {
-      "title": "Thumb",
-      "example": {
-        "en": "https://static.openfoodfacts.org/images/products/04963406/front_en.21.100.jpg"
-      },
-      "type": "object",
-      "properties": {
-        "en": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "en"
-      ]
-    },
-    "Ingredients": {
       "title": "Ingredients",
       "example": {
         "thumb": {
@@ -1412,26 +1451,26 @@
         "small": {
           "en": "https://static.openfoodfacts.org/images/products/04963406/ingredients_en.10.200.jpg"
         }
-      },
+      }
+    },
+    "Nutrition": {
       "type": "object",
+      "required": [
+        "display",
+        "small",
+        "thumb"
+      ],
       "properties": {
-        "thumb": {
-          "$ref": "#/definitions/Thumb"
+        "small": {
+          "$ref": "#/definitions/Small"
         },
         "display": {
           "$ref": "#/definitions/Display"
         },
-        "small": {
-          "$ref": "#/definitions/Small"
+        "thumb": {
+          "$ref": "#/definitions/Thumb"
         }
       },
-      "required": [
-        "thumb",
-        "display",
-        "small"
-      ]
-    },
-    "Nutrition": {
       "title": "Nutrition",
       "example": {
         "small": {
@@ -1443,64 +1482,46 @@
         "thumb": {
           "en": "https://static.openfoodfacts.org/images/products/04963406/nutrition_en.9.100.jpg"
         }
-      },
-      "type": "object",
-      "properties": {
-        "small": {
-          "$ref": "#/definitions/Small"
-        },
-        "display": {
-          "$ref": "#/definitions/Display"
-        },
-        "thumb": {
-          "$ref": "#/definitions/Thumb"
-        }
-      },
-      "required": [
-        "small",
-        "display",
-        "thumb"
-      ]
+      }
     },
     "Languages": {
-      "title": "Languages",
-      "example": {
-        "en:english": 5
-      },
       "type": "object",
+      "required": [
+        "en:english"
+      ],
       "properties": {
         "en:english": {
           "type": "integer",
           "format": "int32"
         }
       },
-      "required": [
-        "en:english"
-      ]
+      "title": "Languages",
+      "example": {
+        "en:english": 5
+      }
     },
     "NutriscorePoints": {
-      "title": "NutriscorePoints",
-      "example": {
-        "sugars": 8,
-        "fiber_value": 0,
-        "saturated_fat_ratio": 0,
-        "saturated_fat_ratio_value": 0,
-        "fruits_vegetables_nuts_colza_walnut_olive_oils_value": 0,
-        "fruits_vegetables_nuts_colza_walnut_olive_oils": 0,
-        "positive_points": 0,
-        "saturated_fat_value": 0,
-        "sodium_value": 12.9,
-        "fiber": 0,
-        "energy_value": 165,
-        "energy": 6,
-        "proteins_value": 0,
-        "proteins": 0,
-        "negative_points": 14,
-        "sugars_value": 11,
-        "saturated_fat": 0,
-        "sodium": 0
-      },
       "type": "object",
+      "required": [
+        "energy",
+        "energy_value",
+        "fiber",
+        "fiber_value",
+        "fruits_vegetables_nuts_colza_walnut_olive_oils",
+        "fruits_vegetables_nuts_colza_walnut_olive_oils_value",
+        "negative_points",
+        "positive_points",
+        "proteins",
+        "proteins_value",
+        "saturated_fat",
+        "saturated_fat_ratio",
+        "saturated_fat_ratio_value",
+        "saturated_fat_value",
+        "sodium",
+        "sodium_value",
+        "sugars",
+        "sugars_value"
+      ],
       "properties": {
         "sugars": {
           "type": "integer",
@@ -1575,79 +1596,79 @@
           "format": "int32"
         }
       },
-      "required": [
-        "sugars",
-        "fiber_value",
-        "saturated_fat_ratio",
-        "saturated_fat_ratio_value",
-        "fruits_vegetables_nuts_colza_walnut_olive_oils_value",
-        "fruits_vegetables_nuts_colza_walnut_olive_oils",
-        "positive_points",
-        "saturated_fat_value",
-        "sodium_value",
-        "fiber",
-        "energy_value",
-        "energy",
-        "proteins_value",
-        "proteins",
-        "negative_points",
-        "sugars_value",
-        "saturated_fat",
-        "sodium"
-      ]
+      "title": "NutriscorePoints",
+      "example": {
+        "sugars": 8,
+        "fiber_value": 0,
+        "saturated_fat_ratio": 0,
+        "saturated_fat_ratio_value": 0,
+        "fruits_vegetables_nuts_colza_walnut_olive_oils_value": 0,
+        "fruits_vegetables_nuts_colza_walnut_olive_oils": 0,
+        "positive_points": 0,
+        "saturated_fat_value": 0,
+        "sodium_value": 12.9,
+        "fiber": 0,
+        "energy_value": 165,
+        "energy": 6,
+        "proteins_value": 0,
+        "proteins": 0,
+        "negative_points": 14,
+        "sugars_value": 11,
+        "saturated_fat": 0,
+        "sodium": 0
+      }
     },
     "Nutriments": {
-      "title": "Nutriments",
-      "example": {
-        "nutrition-score-uk_100g": 2,
-        "nova-group_100g": 1.13,
-        "saturated-fat": 0,
-        "energy_100g": 165,
-        "carbohydrates_100g": 11,
-        "nutrition-score-fr_100g": 14,
-        "salt_100g": 0.0322,
-        "proteins_unit": "g",
-        "carbohydrates": 39,
-        "fat": 0,
-        "energy_value": 140,
-        "sugars_100g": 11,
-        "saturated-fat_serving": 0,
-        "proteins_serving": 0,
-        "salt_value": 0.1143,
-        "salt_serving": 0.1143,
-        "nova-group": 4,
-        "sodium": 0.04572,
-        "sugars_value": 39,
-        "nova-group_serving": 4,
-        "proteins": 0,
-        "fat_serving": 0,
-        "fat_value": 0,
-        "carbohydrates_unit": "g",
-        "sugars": 39,
-        "sodium_serving": 0.04572,
-        "fat_100g": 0,
-        "carbohydrates_value": 39,
-        "energy_serving": 586,
-        "sodium_100g": 0.0129,
-        "nutrition-score-fr": 14,
-        "sodium_value": 0.04572,
-        "sugars_serving": 39,
-        "carbohydrates_serving": 39,
-        "saturated-fat_100g": 0,
-        "salt": 0.1143,
-        "energy_unit": "kcal",
-        "salt_unit": "g",
-        "saturated-fat_value": 0,
-        "nutrition-score-uk": 2,
-        "saturated-fat_unit": "g",
-        "proteins_value": 0,
-        "energy": 586,
-        "fat_unit": "g",
-        "sodium_unit": "g",
-        "sugars_unit": "g",
-        "proteins_100g": 0
-      },
       "type": "object",
+      "required": [
+        "carbohydrates",
+        "carbohydrates_100g",
+        "carbohydrates_serving",
+        "carbohydrates_unit",
+        "carbohydrates_value",
+        "energy",
+        "energy_100g",
+        "energy_serving",
+        "energy_unit",
+        "energy_value",
+        "fat",
+        "fat_100g",
+        "fat_serving",
+        "fat_unit",
+        "fat_value",
+        "nova-group",
+        "nova-group_100g",
+        "nova-group_serving",
+        "nutrition-score-fr",
+        "nutrition-score-fr_100g",
+        "nutrition-score-uk",
+        "nutrition-score-uk_100g",
+        "proteins",
+        "proteins_100g",
+        "proteins_serving",
+        "proteins_unit",
+        "proteins_value",
+        "salt",
+        "salt_100g",
+        "salt_serving",
+        "salt_unit",
+        "salt_value",
+        "saturated-fat",
+        "saturated-fat_100g",
+        "saturated-fat_serving",
+        "saturated-fat_unit",
+        "saturated-fat_value",
+        "sodium",
+        "sodium_100g",
+        "sodium_serving",
+        "sodium_unit",
+        "sodium_value",
+        "sugars",
+        "sugars_100g",
+        "sugars_serving",
+        "sugars_unit",
+        "sugars_value"
+      ],
       "properties": {
         "nutrition-score-uk_100g": {
           "type": "integer",
@@ -1830,160 +1851,83 @@
           "format": "int32"
         }
       },
-      "required": [
-        "nutrition-score-uk_100g",
-        "nova-group_100g",
-        "saturated-fat",
-        "energy_100g",
-        "carbohydrates_100g",
-        "nutrition-score-fr_100g",
-        "salt_100g",
-        "proteins_unit",
-        "carbohydrates",
-        "fat",
-        "energy_value",
-        "sugars_100g",
-        "saturated-fat_serving",
-        "proteins_serving",
-        "salt_value",
-        "salt_serving",
-        "nova-group",
-        "sodium",
-        "sugars_value",
-        "nova-group_serving",
-        "proteins",
-        "fat_serving",
-        "fat_value",
-        "carbohydrates_unit",
-        "sugars",
-        "sodium_serving",
-        "fat_100g",
-        "carbohydrates_value",
-        "energy_serving",
-        "sodium_100g",
-        "nutrition-score-fr",
-        "sodium_value",
-        "sugars_serving",
-        "carbohydrates_serving",
-        "saturated-fat_100g",
-        "salt",
-        "energy_unit",
-        "salt_unit",
-        "saturated-fat_value",
-        "nutrition-score-uk",
-        "saturated-fat_unit",
-        "proteins_value",
-        "energy",
-        "fat_unit",
-        "sodium_unit",
-        "sugars_unit",
-        "proteins_100g"
-      ]
+      "title": "Nutriments",
+      "example": {
+        "nutrition-score-uk_100g": 2,
+        "nova-group_100g": 1.13,
+        "saturated-fat": 0,
+        "energy_100g": 165,
+        "carbohydrates_100g": 11,
+        "nutrition-score-fr_100g": 14,
+        "salt_100g": 0.0322,
+        "proteins_unit": "g",
+        "carbohydrates": 39,
+        "fat": 0,
+        "energy_value": 140,
+        "sugars_100g": 11,
+        "saturated-fat_serving": 0,
+        "proteins_serving": 0,
+        "salt_value": 0.1143,
+        "salt_serving": 0.1143,
+        "nova-group": 4,
+        "sodium": 0.04572,
+        "sugars_value": 39,
+        "nova-group_serving": 4,
+        "proteins": 0,
+        "fat_serving": 0,
+        "fat_value": 0,
+        "carbohydrates_unit": "g",
+        "sugars": 39,
+        "sodium_serving": 0.04572,
+        "fat_100g": 0,
+        "carbohydrates_value": 39,
+        "energy_serving": 586,
+        "sodium_100g": 0.0129,
+        "nutrition-score-fr": 14,
+        "sodium_value": 0.04572,
+        "sugars_serving": 39,
+        "carbohydrates_serving": 39,
+        "saturated-fat_100g": 0,
+        "salt": 0.1143,
+        "energy_unit": "kcal",
+        "salt_unit": "g",
+        "saturated-fat_value": 0,
+        "nutrition-score-uk": 2,
+        "saturated-fat_unit": "g",
+        "proteins_value": 0,
+        "energy": 586,
+        "fat_unit": "g",
+        "sodium_unit": "g",
+        "sugars_unit": "g",
+        "proteins_100g": 0
+      }
     },
     "LanguagesCodes": {
-      "title": "LanguagesCodes",
-      "example": {
-        "en": 5
-      },
       "type": "object",
+      "required": [
+        "en"
+      ],
       "properties": {
         "en": {
           "type": "integer",
           "format": "int32"
         }
       },
-      "required": [
-        "en"
-      ]
+      "title": "LanguagesCodes",
+      "example": {
+        "en": 5
+      }
     },
     "Images": {
-      "title": "Images",
-      "example": {
-        "ingredients_en": {
-          "rev": "10",
-          "geometry": "1355x473-777-2377",
-          "normalize": null,
-          "sizes": {
-            "full": {
-              "w": 1355,
-              "h": 473
-            }
-          },
-          "white_magic": null,
-          "imgid": "3"
-        },
-        "nutrition_en": {
-          "rev": "9",
-          "geometry": "1303x2325-798-147",
-          "normalize": "checked",
-          "sizes": {
-            "full": {
-              "h": 2325,
-              "w": 1303
-            }
-          },
-          "white_magic": null,
-          "imgid": "3"
-        },
-        "ingredients": {
-          "rev": "10",
-          "geometry": "1355x473-777-2377",
-          "normalize": null,
-          "sizes": {
-            "full": {
-              "w": 1355,
-              "h": 473
-            }
-          },
-          "white_magic": null,
-          "imgid": "3"
-        },
-        "front": {
-          "imgid": "2",
-          "white_magic": null,
-          "sizes": {
-            "full": {
-              "w": 2027,
-              "h": 3819
-            }
-          },
-          "normalize": null,
-          "geometry": "2027x3819-546-94",
-          "rev": "8"
-        },
-        "nutrition": {
-          "rev": "9",
-          "geometry": "1303x2325-798-147",
-          "normalize": "checked",
-          "sizes": {
-            "full": {
-              "h": 2325,
-              "w": 1303
-            }
-          },
-          "white_magic": null,
-          "imgid": "3"
-        },
-        "front_en": {
-          "imgid": "11",
-          "angle": "0",
-          "y2": "0",
-          "normalize": "false",
-          "white_magic": "false",
-          "sizes": {
-            "full": {
-              "h": 516,
-              "w": 300
-            }
-          },
-          "geometry": "0x0-0-0",
-          "y1": "0",
-          "x2": "0",
-          "x1": "0",
-          "rev": "21"
-        }
-      },
       "type": "object",
+      "required": [
+        "front",
+        "front_en",
+        "ingredients",
+        "ingredients_en",
+        "nutrition",
+        "nutrition_en"
+      ],
       "properties": {
         "ingredients_en": {
           "$ref": "#/definitions/IngredientsEn"
@@ -2004,22 +1948,91 @@
           "$ref": "#/definitions/FrontEn"
         }
       },
-      "required": [
-        "ingredients_en",
-        "nutrition_en",
-        "ingredients",
-        "front",
-        "nutrition",
-        "front_en"
-      ]
+      "title": "Images",
+      "example": {
+        "ingredients_en": {
+          "rev": "10",
+          "geometry": "1355x473-777-2377",
+          "sizes": {
+            "full": {
+              "w": 1355,
+              "h": 473
+            }
+          },
+          "imgid": "3"
+        },
+        "nutrition_en": {
+          "rev": "9",
+          "geometry": "1303x2325-798-147",
+          "normalize": "checked",
+          "sizes": {
+            "full": {
+              "h": 2325,
+              "w": 1303
+            }
+          },
+          "imgid": "3"
+        },
+        "ingredients": {
+          "rev": "10",
+          "geometry": "1355x473-777-2377",
+          "sizes": {
+            "full": {
+              "w": 1355,
+              "h": 473
+            }
+          },
+          "imgid": "3"
+        },
+        "front": {
+          "imgid": "2",
+          "sizes": {
+            "full": {
+              "w": 2027,
+              "h": 3819
+            }
+          },
+          "geometry": "2027x3819-546-94",
+          "rev": "8"
+        },
+        "nutrition": {
+          "rev": "9",
+          "geometry": "1303x2325-798-147",
+          "normalize": "checked",
+          "sizes": {
+            "full": {
+              "h": 2325,
+              "w": 1303
+            }
+          },
+          "imgid": "3"
+        },
+        "front_en": {
+          "imgid": "11",
+          "angle": "0",
+          "y2": "0",
+          "normalize": "false",
+          "white_magic": "false",
+          "sizes": {
+            "full": {
+              "h": 516,
+              "w": 300
+            }
+          },
+          "geometry": "0x0-0-0",
+          "y1": "0",
+          "x2": "0",
+          "x1": "0",
+          "rev": "21"
+        }
+      }
     },
     "generatedObject": {
-      "title": "generatedObject",
-      "example": {
-        "uploaded_t": 1375384725,
-        "uploader": "openfoodfacts-contributors"
-      },
       "type": "object",
+      "required": [
+        "uploaded_t",
+        "uploader"
+      ],
       "properties": {
         "uploaded_t": {
           "type": "integer",
@@ -2032,36 +2045,36 @@
           "$ref": "#/definitions/Sizes"
         }
       },
-      "required": [
-        "uploaded_t",
-        "uploader"
-      ]
+      "title": "generatedObject",
+      "example": {
+        "uploaded_t": 1375384725,
+        "uploader": "openfoodfacts-contributors"
+      }
     },
     "Sizes": {
+      "type": "object",
+      "required": [
+        "full"
+      ],
+      "properties": {
+        "full": {
+          "$ref": "#/definitions/Full"
+        }
+      },
       "title": "Sizes",
       "example": {
         "full": {
           "h": 3264,
           "w": 2448
         }
-      },
-      "type": "object",
-      "properties": {
-        "full": {
-          "$ref": "#/definitions/Full"
-        }
-      },
-      "required": [
-        "full"
-      ]
+      }
     },
     "Full": {
-      "title": "Full",
-      "example": {
-        "h": 3264,
-        "w": 2448
-      },
       "type": "object",
+      "required": [
+        "h",
+        "w"
+      ],
       "properties": {
         "h": {
           "type": "integer",
@@ -2072,27 +2085,22 @@
           "format": "int32"
         }
       },
-      "required": [
-        "h",
-        "w"
-      ]
+      "title": "Full",
+      "example": {
+        "h": 3264,
+        "w": 2448
+      }
     },
     "IngredientsEn": {
-      "title": "IngredientsEn",
-      "example": {
-        "rev": "10",
-        "geometry": "1355x473-777-2377",
-        "normalize": null,
-        "sizes": {
-          "full": {
-            "w": 1355,
-            "h": 473
-          }
-        },
-        "white_magic": null,
-        "imgid": "3"
-      },
       "type": "object",
+      "required": [
+        "geometry",
+        "imgid",
+        "normalize",
+        "rev",
+        "sizes",
+        "white_magic"
+      ],
       "properties": {
         "rev": {
           "type": "string"
@@ -2113,34 +2121,67 @@
           "type": "string"
         }
       },
-      "required": [
-        "rev",
-        "geometry",
-        "normalize",
-        "sizes",
-        "white_magic",
-        "imgid"
-      ]
+      "title": "IngredientsEn",
+      "example": {
+        "rev": "10",
+        "geometry": "1355x473-777-2377",
+        "sizes": {
+          "full": {
+            "w": 1355,
+            "h": 473
+          }
+        },
+        "imgid": "3"
+      }
     },
     "Sizes11": {
+      "type": "object",
+      "required": [
+        "full"
+      ],
+      "properties": {
+        "full": {
+          "$ref": "#/definitions/Full"
+        }
+      },
       "title": "Sizes11",
       "example": {
         "full": {
           "w": 1355,
           "h": 473
         }
-      },
-      "type": "object",
-      "properties": {
-        "full": {
-          "$ref": "#/definitions/Full"
-        }
-      },
-      "required": [
-        "full"
-      ]
+      }
     },
     "NutritionEn": {
+      "type": "object",
+      "required": [
+        "geometry",
+        "imgid",
+        "normalize",
+        "rev",
+        "sizes",
+        "white_magic"
+      ],
+      "properties": {
+        "rev": {
+          "type": "string"
+        },
+        "geometry": {
+          "type": "string"
+        },
+        "normalize": {
+          "type": "string"
+        },
+        "sizes": {
+          "$ref": "#/definitions/Sizes11"
+        },
+        "white_magic": {
+          "type": "string"
+        },
+        "imgid": {
+          "type": "string"
+        }
+      },
       "title": "NutritionEn",
       "example": {
         "rev": "9",
@@ -2152,60 +2193,24 @@
             "w": 1303
           }
         },
-        "white_magic": null,
         "imgid": "3"
-      },
-      "type": "object",
-      "properties": {
-        "rev": {
-          "type": "string"
-        },
-        "geometry": {
-          "type": "string"
-        },
-        "normalize": {
-          "type": "string"
-        },
-        "sizes": {
-          "$ref": "#/definitions/Sizes11"
-        },
-        "white_magic": {
-          "type": "string"
-        },
-        "imgid": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "rev",
-        "geometry",
-        "normalize",
-        "sizes",
-        "white_magic",
-        "imgid"
-      ]
+      }
     },
     "FrontEn": {
-      "title": "FrontEn",
-      "example": {
-        "imgid": "11",
-        "angle": "0",
-        "y2": "0",
-        "normalize": "false",
-        "white_magic": "false",
-        "sizes": {
-          "full": {
-            "h": 516,
-            "w": 300
-          }
-        },
-        "geometry": "0x0-0-0",
-        "y1": "0",
-        "x2": "0",
-        "x1": "0",
-        "rev": "21"
-      },
       "type": "object",
+      "required": [
+        "angle",
+        "geometry",
+        "imgid",
+        "normalize",
+        "rev",
+        "sizes",
+        "white_magic",
+        "x1",
+        "x2",
+        "y1",
+        "y2"
+      ],
       "properties": {
         "imgid": {
           "type": "string"
@@ -2241,29 +2246,34 @@
           "type": "string"
         }
       },
-      "required": [
-        "imgid",
-        "angle",
-        "y2",
-        "normalize",
-        "white_magic",
-        "sizes",
-        "geometry",
-        "y1",
-        "x2",
-        "x1",
-        "rev"
-      ]
+      "title": "FrontEn",
+      "example": {
+        "imgid": "11",
+        "angle": "0",
+        "y2": "0",
+        "normalize": "false",
+        "white_magic": "false",
+        "sizes": {
+          "full": {
+            "h": 516,
+            "w": 300
+          }
+        },
+        "geometry": "0x0-0-0",
+        "y1": "0",
+        "x2": "0",
+        "x1": "0",
+        "rev": "21"
+      }
     },
     "NutrientLevels": {
-      "title": "NutrientLevels",
-      "example": {
-        "saturated-fat": "low",
-        "sugars": "high",
-        "salt": "low",
-        "fat": "low"
-      },
       "type": "object",
+      "required": [
+        "fat",
+        "salt",
+        "saturated-fat",
+        "sugars"
+      ],
       "properties": {
         "saturated-fat": {
           "type": "string"
@@ -2278,16 +2288,23 @@
           "type": "string"
         }
       },
-      "required": [
-        "saturated-fat",
-        "sugars",
-        "salt",
-        "fat"
-      ]
+      "title": "NutrientLevels",
+      "example": {
+        "saturated-fat": "low",
+        "sugars": "high",
+        "salt": "low",
+        "fat": "low"
+      }
     },
     "Searchingforproducts": {
-      "title": "Searchingforproducts",
       "type": "object",
+      "required": [
+        "count",
+        "page",
+        "page_size",
+        "products",
+        "skip"
+      ],
       "properties": {
         "page": {
           "type": "integer",
@@ -2312,30 +2329,17 @@
           "format": "int32"
         }
       },
-      "required": [
-        "page",
-        "page_size",
-        "products",
-        "count",
-        "skip"
-      ]
+      "title": "Searchingforproducts"
     },
     "Source": {
-      "title": "Source",
-      "example": {
-        "import_t": 1548767541,
-        "name": "FoodRepo",
-        "manufacturer": "0",
-        "source_licence_url": "https://creativecommons.org/licenses/by/4.0/",
-        "fields": [
-          "countries"
-        ],
-        "url": "https://www.foodrepo.org/ch/products/22503",
-        "id": "openfood-ch",
-        "source_licence": "Creative Commons Attribution 4.0 International License",
-        "images": []
-      },
       "type": "object",
+      "required": [
+        "fields",
+        "id",
+        "images",
+        "import_t",
+        "url"
+      ],
       "properties": {
         "import_t": {
           "type": "integer",
@@ -2372,27 +2376,28 @@
           }
         }
       },
-      "required": [
-        "import_t",
-        "fields",
-        "url",
-        "id",
-        "images"
-      ]
+      "title": "Source",
+      "example": {
+        "import_t": 1548767541,
+        "name": "FoodRepo",
+        "manufacturer": "0",
+        "source_licence_url": "https://creativecommons.org/licenses/by/4.0/",
+        "fields": [
+          "countries"
+        ],
+        "url": "https://www.foodrepo.org/ch/products/22503",
+        "id": "openfood-ch",
+        "source_licence": "Creative Commons Attribution 4.0 International License",
+        "images": []
+      }
     },
     "m18": {
-      "title": "m18",
-      "example": {
-        "sizes": {
-          "full": {
-            "w": 2612,
-            "h": 1468
-          }
-        },
-        "uploaded_t": 1536868232,
-        "uploader": "openfoodfacts-contributors"
-      },
       "type": "object",
+      "required": [
+        "sizes",
+        "uploaded_t",
+        "uploader"
+      ],
       "properties": {
         "sizes": {
           "$ref": "#/definitions/Sizes"
@@ -2405,30 +2410,30 @@
           "type": "string"
         }
       },
-      "required": [
-        "sizes",
-        "uploaded_t",
-        "uploader"
-      ]
-    },
-    "NutritionFr": {
-      "title": "NutritionFr",
+      "title": "m18",
       "example": {
-        "imgid": "2",
-        "normalize": "false",
         "sizes": {
           "full": {
-            "w": 771,
-            "h": 654
+            "w": 2612,
+            "h": 1468
           }
         },
-        "orientation": "0",
-        "ocr": 1,
-        "white_magic": "false",
-        "rev": "9",
-        "geometry": "771x654-532-977"
-      },
+        "uploaded_t": 1536868232,
+        "uploader": "openfoodfacts-contributors"
+      }
+    },
+    "NutritionFr": {
       "type": "object",
+      "required": [
+        "geometry",
+        "imgid",
+        "normalize",
+        "ocr",
+        "orientation",
+        "rev",
+        "sizes",
+        "white_magic"
+      ],
       "properties": {
         "imgid": {
           "type": "string"
@@ -2471,18 +2476,73 @@
           "type": "string"
         }
       },
-      "required": [
-        "imgid",
-        "normalize",
-        "sizes",
-        "orientation",
-        "ocr",
-        "white_magic",
-        "rev",
-        "geometry"
-      ]
+      "title": "NutritionFr",
+      "example": {
+        "imgid": "2",
+        "normalize": "false",
+        "sizes": {
+          "full": {
+            "w": 771,
+            "h": 654
+          }
+        },
+        "orientation": "0",
+        "ocr": 1,
+        "white_magic": "false",
+        "rev": "9",
+        "geometry": "771x654-532-977"
+      }
     },
     "FrontFr": {
+      "type": "object",
+      "required": [
+        "angle",
+        "geometry",
+        "imgid",
+        "normalize",
+        "rev",
+        "sizes",
+        "white_magic",
+        "x1",
+        "x2",
+        "y1",
+        "y2"
+      ],
+      "properties": {
+        "y2": {
+          "type": "string"
+        },
+        "angle": {
+          "type": "string"
+        },
+        "imgid": {
+          "type": "string"
+        },
+        "normalize": {
+          "type": "string"
+        },
+        "white_magic": {
+          "type": "string"
+        },
+        "sizes": {
+          "$ref": "#/definitions/Sizes11"
+        },
+        "geometry": {
+          "type": "string"
+        },
+        "y1": {
+          "type": "string"
+        },
+        "rev": {
+          "type": "string"
+        },
+        "x1": {
+          "type": "string"
+        },
+        "x2": {
+          "type": "string"
+        }
+      },
       "title": "FrontFr",
       "example": {
         "y2": "0",
@@ -2505,80 +2565,25 @@
         "rev": "53",
         "x1": "0",
         "x2": "0"
-      },
-      "type": "object",
-      "properties": {
-        "y2": {
-          "type": "string"
-        },
-        "angle": {
-          "type": "string"
-        },
-        "imgid": {
-          "type": "string"
-        },
-        "normalize": {
-          "type": "string"
-        },
-        "white_magic": {
-          "type": "string"
-        },
-        "sizes": {
-          "$ref": "#/definitions/Sizes11"
-        },
-        "geometry": {
-          "type": "string"
-        },
-        "y1": {
-          "type": "string"
-        },
-        "rev": {
-          "type": "string"
-        },
-        "x1": {
-          "type": "string"
-        },
-        "x2": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "y2",
-        "angle",
-        "imgid",
-        "normalize",
-        "white_magic",
-        "sizes",
-        "geometry",
-        "y1",
-        "rev",
-        "x1",
-        "x2"
-      ]
+      }
     },
     "IngredientsFr": {
-      "title": "IngredientsFr",
-      "example": {
-        "angle": null,
-        "y2": null,
-        "imgid": "17",
-        "normalize": "0",
-        "sizes": {
-          "full": {
-            "h": 1200,
-            "w": 2359
-          }
-        },
-        "orientation": "0",
-        "ocr": 1,
-        "white_magic": "0",
-        "rev": "36",
-        "x1": null,
-        "x2": null,
-        "geometry": "0x0-0-0",
-        "y1": null
-      },
       "type": "object",
+      "required": [
+        "angle",
+        "geometry",
+        "imgid",
+        "normalize",
+        "ocr",
+        "orientation",
+        "rev",
+        "sizes",
+        "white_magic",
+        "x1",
+        "x2",
+        "y1",
+        "y2"
+      ],
       "properties": {
         "angle": {
           "type": "string"
@@ -2621,43 +2626,38 @@
           "type": "string"
         }
       },
-      "required": [
-        "angle",
-        "y2",
-        "imgid",
-        "normalize",
-        "sizes",
-        "orientation",
-        "ocr",
-        "white_magic",
-        "rev",
-        "x1",
-        "x2",
-        "geometry",
-        "y1"
-      ]
-    },
-    "FrontZh": {
-      "title": "FrontZh",
+      "title": "IngredientsFr",
       "example": {
-        "x1": "0",
-        "x2": "0",
-        "rev": "24",
-        "y1": "0",
-        "geometry": "0x0-0-0",
+        "imgid": "17",
+        "normalize": "0",
         "sizes": {
           "full": {
-            "w": 1765,
-            "h": 2360
+            "h": 1200,
+            "w": 2359
           }
         },
-        "white_magic": "false",
-        "normalize": "false",
-        "imgid": "4",
-        "y2": "0",
-        "angle": "0"
-      },
+        "orientation": "0",
+        "ocr": 1,
+        "white_magic": "0",
+        "rev": "36",
+        "geometry": "0x0-0-0"
+      }
+    },
+    "FrontZh": {
       "type": "object",
+      "required": [
+        "angle",
+        "geometry",
+        "imgid",
+        "normalize",
+        "rev",
+        "sizes",
+        "white_magic",
+        "x1",
+        "x2",
+        "y1",
+        "y2"
+      ],
       "properties": {
         "x1": {
           "type": "string"
@@ -2693,25 +2693,25 @@
           "type": "string"
         }
       },
-      "required": [
-        "x1",
-        "x2",
-        "rev",
-        "y1",
-        "geometry",
-        "sizes",
-        "white_magic",
-        "normalize",
-        "imgid",
-        "y2",
-        "angle"
-      ]
+      "title": "FrontZh",
+      "example": {
+        "x1": "0",
+        "x2": "0",
+        "rev": "24",
+        "y1": "0",
+        "geometry": "0x0-0-0",
+        "sizes": {
+          "full": {
+            "w": 1765,
+            "h": 2360
+          }
+        },
+        "white_magic": "false",
+        "normalize": "false",
+        "imgid": "4",
+        "y2": "0",
+        "angle": "0"
+      }
     }
-  },
-  "tags": [
-    {
-      "name": "Misc",
-      "description": ""
-    }
-  ]
+  }
 }
